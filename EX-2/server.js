@@ -1,24 +1,17 @@
 import express from 'express';
-import { getAllArticles, getArticleById } from './controllers/articlesController.js';
-import { getAllJournalists, getJournalistById } from './controllers/journalistsController.js';
-import { getAllCategories, getCategoryById } from './controllers/categoriesController.js';
+import articlesRoutes from './routes/articlesRoutes.js';
+import journalistRoutes from './routes/journalistRoutes.js';
+import categoriesRoutes from './routes/categoriesRoutes.js';
 
 const app = express();
 app.use(express.json());
 
 const PORT = 3000;
 
-// Article routes (controller layer)
-app.get('/articles', getAllArticles);
-app.get('/articles/:id', getArticleById);
-
-// Journalist routes
-app.get('/journalists', getAllJournalists);
-app.get('/journalists/:id', getJournalistById);
-
-// Category routes
-app.get('/categories', getAllCategories);
-app.get('/categories/:id', getCategoryById);
+// Mount route modules
+app.use('/articles', articlesRoutes);
+app.use('/journalists', journalistRoutes);
+app.use('/categories', categoriesRoutes);
 
 app.listen(PORT, () => {
   console.log(`🚀 Server is running on http://localhost:${PORT}`);
